@@ -1,6 +1,6 @@
 {
-  "projectId": "your-project-id",
   "settings": {
-    "buildCommand": "pip install -r requirements.txt && python app.py"
+    "buildCommand": "pip install -r requirements.txt",
+    "pythonVersion": "3.9"
   }
 }
