@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}Home - ImGen{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ImGen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a192f; /* Dark blue background */
+             }
+        /* Form Container */
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #0A1A2F;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        /* Heading */
+        .form-container h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #00FFFF;
+            text-shadow: 0 0 10px #00FFFF;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        /* Input Fields */
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 80%;
+            padding: 10px 15px;
+            margin: 10px 0;
+            background-color: #1A2A3F;
+            border: 2px solid #00FFFF;
+            border-radius: 5px;
+            color:rgb(84, 120, 216);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-container input::placeholder {
+            color: #A0A0A0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00FFFF;
+        }
+
+        /* Password Container */
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin: 10px auto;
+        }
+
+        .password-container input {
+            width: 100%;
+        }
+
+        .password-container button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #00FFFF;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #0A1A2F;
+        }
+
+        /* Register Button */
+        .form-container button[type="submit"] {
+            width: 60%;
+            padding: 10px 20px;
+            background-color: #00FFFF;
+            color: #0A1A2F;
+            border: 2px solid #00FFFF;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #00E0E0;
+            box-shadow: 0 0 15px #00FFFF;
+        }
+
+        /* Login Link */
+        .form-container p {
+            margin-top: 15px;
+            color: #B0B0B0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .form-container p a {
+            color: #00FFFF;
+            text-decoration: none;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .form-container p a:hover {
+            text-shadow: 0 0 10px #00FFFF;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create an Account</h2>
+        <form method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="button" id="togglePasswordBtn" onclick="togglePassword()" style="background: transparent; border: none; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #00FFFF; font-family: 'Orbitron', sans-serif; font-size: 0.9rem;">View</button>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePasswordBtn');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = 'View';
+            }
+        }
+    </script>
+</body>
+</html>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% endblock %}

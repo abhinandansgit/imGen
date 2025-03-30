@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block title %}Profile - ImGen{% endblock %}
+{% block content %}
+
+<!-- Back Arrow Button -->
+<a href="{{ url_for('home') }}" class="back-btn">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<h2>Welcome, {{ current_user.username }}</h2>
+<h3>Your Generated Images</h3>
+
+{% if images %}
+    <div class="gallery">
+        {% for image in images %}
+        <div class="image-card">
+            <img src="{{ url_for('static', filename='images/' + image.image_path) }}" 
+                 alt="Generated Image" 
+                 onclick="viewFullscreen(this)">
+            <p><b>Prompt:</b> {{ image.prompt }}</p>
+            <div class="button-group">
+                <a href="{{ url_for('static', filename='images/' + image.image_path) }}" 
+                   download class="download-btn">⬇️ Download</a>
+                <a href="{{ url_for('delete_image', image_id=image.id) }}" 
+                   class="delete-btn">🗑️ Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No images generated yet.</p>
+{% endif %}
+
+<!-- Fullscreen View -->
+<div class="fullscreen" onclick="closeFullscreen()">
+    <img id="fullscreen-img" src="">
+</div>
+
+<style>
+    /* Custom Cursor Styles */
+    body {
+        cursor: none; /* Hide the default cursor */
+    }
+    .custom-cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #00FFFF; /* Neon cyan ring (primary cursor) */
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+    }
+    .custom-cursor.trail {
+        width: 10px;
+        height: 10px;
+        background-color: #FF00C3; /* Neon pink trailing dot (secondary cursor) */
+        border: none;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+    }
+    a:hover ~ .custom-cursor,
+    button:hover ~ .custom-cursor,
+    input:hover ~ .custom-cursor {
+        transform: scale(1.5);
+        border-color: #FF00C3;
+    }
+
+    /* Back Button */
+    .back-btn {
+        position: fixed;
+        z-index: 1000;
+        top: 120px;
+        left: 40px;
+        color: #00d4ff;
+        font-size: 1.5rem;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .back-btn:hover {
+        color: #ff00c3;
+        transform: scale(1.1);
+    }
+
+    /* Gallery Layout */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .image-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    img {
+        max-width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+    img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Button Group */
+    .button-group {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* Download Button */
+    .download-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    .download-btn:hover {
+        background-color: #218838;
+    }
+
+    /* Delete Button */
+    .delete-btn {
+        background-color: #e74c3c;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s;
+        cursor: pointer;
+    }
+    .delete-btn:hover {
+        background-color: #c0392b;
+    }
+
+    /* Fullscreen Modal */
+    .fullscreen {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .fullscreen img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Generate More Button Container (Removed) */
+    .generate-more-container {
+        display: none; /* Hidden since the button is removed */
+    }
+</style>
+
+<script>
+    // Custom Cursor and Trailing Dot
+    document.addEventListener('DOMContentLoaded', () => {
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        const trail = document.createElement('div');
+        trail.classList.add('custom-cursor', 'trail');
+        document.body.appendChild(trail);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+            }, 50);
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.style.display = 'none';
+            trail.style.display = 'none';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.display = 'block';
+            trail.style.display = 'block';
+        });
+    });
+
+    // Function to open fullscreen view
+    function viewFullscreen(img) {
+        const fullscreenDiv = document.querySelector('.fullscreen');
+        const fullscreenImg = document.getElementById('fullscreen-img');
+        fullscreenImg.src = img.src;
+        fullscreenDiv.style.display = 'flex';
+    }
+
+    // Function to close fullscreen view
+    function closeFullscreen() {
+        const fullscreenDiv = document.querySelector('.fullscreen');
+        fullscreenDiv.style.display = 'none';
+    }
+</script>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% endblock %}

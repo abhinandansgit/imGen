@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ImGen by Abhinandan{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    <script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    showToast('{{ message }}', '{{ category }}');
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </script>
+    <nav>
+        <div class="logo-container">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+                <span>ImGen by Abhinandan</span>
+            </a>
+        </div>
+        <ul>
+            {% if current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('profile') }}" title="Profile">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('logout') }}" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+ <!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+   
+    <footer>
+        <p>© 2025 ImGen by Abhinandan</p>
+    </footer>
+</body>
+</html>

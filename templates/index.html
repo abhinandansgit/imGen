@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Home - ImGen{% endblock %}
+{% block content %}
+
+<!-- Google Fonts for Futuristic Typography -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Side Menu -->
+<div id="sideMenu" class="side-menu">
+    <button class="close-btn" onclick="toggleMenu()">❌</button>
+    <ul>
+        <li><a href="#">🏠 Home</a></li>
+        <li><a href="/profile">🖼️ Gallery</a></li>
+        <li><a href="/about">ℹ️ About</a></li>
+        <li><a href="/contact">📞 Contact</a></li>
+    </ul>
+</div>
+
+<!-- Menu Toggle Button -->
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<!-- Main Container -->
+<div class="container">
+    <h1 class="title animate-fade-in">✨ Welcome to ImGen</h1>
+    <p class="subtitle">Generate Stunning AI Images with Custom Prompts</p>
+
+    <!-- Prompt Form -->
+    <form method="post" action="{{ url_for('generate') }}" id="promptForm" class="animate-slide-in">
+        <input type="text" id="promptInput" name="prompt" placeholder="Enter your creative prompt..." required>
+        <span id="promptFeedback" style="color: #ff6b6b; display: none;">Please enter at least 5 characters.</span>
+        <button type="submit" class="generate-btn" disabled>🎨 Generate Image</button>
+    </form>
+
+    <!-- Loader -->
+    <div class="loader" id="loader" style="display:none;">
+        <img src="{{ url_for('static', filename='loading.gif') }}" alt="Loading">
+        <p>Creating Magic... ✨</p>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery" id="gallery">
+        {% for image in images %}
+            <div class="image-card" onclick="showImagePreview('{{ url_for('static', filename=image) }}')">
+                <img src="{{ url_for('static', filename=image) }}" alt="Generated Art">
+                <div class="image-actions">
+                    <a href="{{ url_for('static', filename=image) }}" download onclick="event.stopPropagation();">⬇️</a>
+                    <a href="#" class="delete-btn" onclick="event.stopPropagation(); deleteImage('{{ image }}')">❌</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<!-- Link to Static Files -->
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% endblock %}

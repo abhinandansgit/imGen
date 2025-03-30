@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>About - ImGen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(145deg, rgb(7, 45, 125), rgb(8, 74, 79));
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+            cursor: none; /* Hide default cursor */
+        }
+        h1, h2, h3 {
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #00d4ff, #ff00c3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgb(27, 35, 59);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .section {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 0.5s forwards;
+        }
+        .container .section:nth-of-type(1) {
+            animation-delay: 0.2s;
+        }
+        .container .section:nth-of-type(2) {
+            animation-delay: 0.4s;
+        }
+        .container .section:nth-of-type(3) {
+            animation-delay: 0.6s;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        ul li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+        .back-btn {
+            position: fixed;
+            z-index: 1000;
+            top: 20px;
+            left: 40px;
+            color: #00d4ff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .back-btn:hover {
+            color: #ff00c3;
+            transform: scale(1.1);
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        /* Custom Cursor Styles */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00FFFF; /* Neon cyan ring */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        .custom-cursor.trail {
+            width: 10px;
+            height: 10px;
+            background-color: #FF00C3; /* Neon pink trailing dot */
+            border: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        a:hover ~ .custom-cursor,
+        button:hover ~ .custom-cursor,
+        input:hover ~ .custom-cursor {
+            transform: scale(1.5);
+            border-color: #FF00C3;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+    <div class="container">
+        <h1>About ImGen</h1>
+        <div class="section">
+            <h2>🔧 Tech Stack</h2>
+            <ul>
+                <li><b>Backend:</b> Flask (Python) for server-side routing and logic.</li>
+                <li><b>Database:</b> SQLAlchemy for managing user data and image history.</li>
+                <li><b>Frontend:</b> HTML, CSS, JavaScript for a modern, interactive UI.</li>
+                <li><b>Image Generation:</b> algorithms transform imagination into reality, pixel by pixel.</li>
+                <li><b>Deployment:</b> Uses a static folder for managing generated images.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>✨ Features</h2>
+            <ul>
+                <li><b>User Authentication:</b> Secure login and registration with password hashing.</li>
+                <li><b>AI Image Generation:</b> Create custom images using unique text prompts.</li>
+                <li><b>Dynamic Watermarking:</b> Automatic watermarking with user attribution.</li>
+                <li><b>Image History:</b> View, download, or delete previously generated images.</li>
+                <li><b>Fullscreen Image View:</b> Click to view images in fullscreen mode.</li>
+                <li><b>Stylish Interface:</b> Futuristic design with smooth animations.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>🚀 Future Enhancements</h2>
+            <ul>
+                <li>Advanced image filters and customization.</li>
+                <li>Social media sharing options.</li>
+                <li>Support for more image formats and resolutions.</li>
+                <li>Real-time generation progress indicators.</li>
+            </ul>
+        </div>
+        <p style="text-align: center; color: yellow;">© 2025 Abhinandan. All rights reserved.</p>
+    </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    <script>
+        // Custom Cursor and Trailing Dot
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            const trail = document.createElement('div');
+            trail.classList.add('custom-cursor', 'trail');
+            document.body.appendChild(trail);
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    trail.style.left = e.clientX + 'px';
+                    trail.style.top = e.clientY + 'px';
+                }, 50);
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursor.style.display = 'none';
+                trail.style.display = 'none';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursor.style.display = 'block';
+                trail.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

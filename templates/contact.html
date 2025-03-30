@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Cursor Styles */
+        body {
+            cursor: none; /* Hide the default cursor */
+        }
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00FFFF; /* Neon cyan ring */
+            border-radius: 50%;
+            pointer-events: none; /* Prevent cursor from interfering with clicks */
+            z-index: 9999; /* Ensure it’s above other elements */
+            transition: transform 0.1s ease; /* Smooth scaling on hover */
+        }
+        .custom-cursor.trail {
+            width: 10px;
+            height: 10px;
+            background-color: #FF00C3; /* Neon pink trailing dot */
+            border: none;
+            opacity: 0.8;
+            transition: all 0.3s ease; /* Smoother trailing effect */
+        }
+        a:hover ~ .custom-cursor,
+        button:hover ~ .custom-cursor,
+        input:hover ~ .custom-cursor {
+            transform: scale(1.5); /* Enlarge cursor on hover */
+            border-color: #FF00C3; /* Change to neon pink on hover */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-300 text-white min-h-screen flex flex-col justify-center items-center p-4">
+    <a href="{{ url_for('home') }}" class="absolute top-5 left-5 bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </a>
+    <div class="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
+        <h1 class="text-3xl font-bold mb-4">Get in Touch</h1>
+        <p class="mb-6">Feel free to reach out via any platform!</p>
+        <div class="flex justify-center space-x-4 mb-4">
+            <a href="https://www.linkedin.com/in/abhinandan-parhi-ap/" target="_blank" class="bg-blue-600 p-3 rounded-full hover:bg-blue-700 transition">
+                <i class="fa-brands fa-linkedin text-white text-2xl"></i>
+            </a>
+            <a href="https://github.com/abhinandansgit/" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-gray-700 transition">
+                <img src="https://cdn.simpleicons.org/github/white" alt="GitHub" class="h-6 w-6">
+            </a>
+            <a href="https://byabhi.in" target="_blank" class="bg-sky-500 p-3 rounded-full hover:bg-sky-600 transition">
+                <i class="fa-solid fa-briefcase text-white text-2xl"></i>
+            </a>
+            <a href="https://www.instagram.com/abhinandan_ap_" target="_blank" class="bg-pink-500 p-3 rounded-full hover:bg-pink-600 transition">
+                <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </a>
+        </div>
+        <div class="mt-4 space-y-4">
+            <a href="tel:+916372202830" class="block bg-green-600 p-3 rounded-lg shadow-lg hover:bg-green-700 transition">
+                📞 +91 63722 02830
+            </a>
+            <a href="https://wa.me/916372202830" target="_blank" class="block bg-green-500 p-3 rounded-lg shadow-lg hover:bg-green-600 transition">
+                💬 WhatsApp
+            </a>
+            <a href="mailto:abhinandanparhi48@gmail.com" class="block bg-blue-500 p-3 rounded-lg shadow-lg hover:bg-blue-600 transition">
+                📧 abhinandanparhi48@gmail.com
+            </a>
+        </div>
+        <p style="text-align: center; color: yellow; padding-top: 30px;">© 2025 Abhinandan. All rights reserved.</p>
+    </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    <script>
+        // Custom Cursor and Trailing Dot
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            const trail = document.createElement('div');
+            trail.classList.add('custom-cursor', 'trail');
+            document.body.appendChild(trail);
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    trail.style.left = e.clientX + 'px';
+                    trail.style.top = e.clientY + 'px';
+                }, 50);
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursor.style.display = 'none';
+                trail.style.display = 'none';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursor.style.display = 'block';
+                trail.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
