@@ -1,21 +1,29 @@
-MIT License
-
+ImGen License Agreement
 Copyright (c) 2025 Abhinandan Parhi
+All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Grant of License
+This license strictly limits the rights to use, modify, distribute, and sell this software. By obtaining a copy of this software, you agree to comply with all terms stated in this document.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+2. Restrictions
+You may not:
+Copy, distribute, or sublicense this software without explicit written permission from the author.
+Modify or create derivative works based on this software without explicit written approval.
+Use this software for commercial purposes without a paid license agreement from the author.
+Reverse engineer, decompile, or disassemble any part of this software.
+Remove or alter any copyright notices or attributions.
+Use this software for illegal, unethical, or malicious activities.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+3. Permitted Usage
+You may:
+Use this software for personal and non-commercial purposes.
+Contribute improvements via official contribution channels (if open-source contributions are allowed).
+Use this software for educational purposes, provided that proper attribution is given.
+
+4. Liability Disclaimer
+This software is provided "as is", without any express or implied warranties.
+The author is not liable for any damages, losses, or legal claims arising from the use of this software.
+
+5. Enforcement & Termination
+Violation of any terms in this license automatically terminates your right to use this software.
+Legal action may be pursued for unauthorized usage, distribution, or modification.
