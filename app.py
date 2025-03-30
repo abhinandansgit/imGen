@@ -23,7 +23,9 @@ def contact():
     return render_template("contact.html")
 
 from routes import *
+def handler(request, *args, **kwargs):
+    return app(request.environ, start_response)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Ensure it runs on the correct port
+    port = int(os.environ.get("PORT", 5000))  
     app.run(host="0.0.0.0", port=port)
