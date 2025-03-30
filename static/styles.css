@@ -1,0 +1,266 @@
+/* General Styles */
+body {
+    background-color: #0a192f; /* Dark blue background */
+    color: #ccd6f6; /* Light text */
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    margin: 0;
+}
+
+/* Custom Cursor Styles */
+body {
+    cursor: none; /* Hide the default cursor */
+}
+
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00FFFF; /* Neon cyan ring */
+    border-radius: 50%;
+    pointer-events: none; /* Prevent cursor from interfering with clicks */
+    z-index: 9999; /* Ensure it’s above other elements */
+    transition: transform 0.1s ease; /* Smooth scaling on hover */
+}
+
+.custom-cursor.trail {
+    width: 10px;
+    height: 10px;
+    background-color: #FF00C3; /* Neon pink trailing dot */
+    border: none;
+    opacity: 0.8;
+    transition: all 0.3s ease; /* Smoother trailing effect */
+}
+
+/* Hover Effects for Interactive Elements */
+a:hover ~ .custom-cursor,
+button:hover ~ .custom-cursor,
+input:hover ~ .custom-cursor {
+    transform: scale(1.5); /* Enlarge cursor on hover */
+    border-color: #FF00C3; /* Change to neon pink on hover */
+}
+
+/* Ensure global cursor styles */
+html, body {
+    cursor: none !important;
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Side Menu Styles */
+.side-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #0c2141;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform: translateX(-100%); /* Hidden by default */
+    transition: transform 0.3s ease; /* Smooth slide-in */
+    z-index: 1000;
+}
+.side-menu.visible {
+    transform: translateX(0); /* Visible state */
+}
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+.side-menu ul li a {
+    color: #64ffda; /* Light green text */
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+.side-menu ul li a:hover {
+    background-color: #233554; /* Lighter blue on hover */
+}
+.close-btn {
+    background: #233554;
+    border: none;
+    opacity:100%;
+    color: #64ffda;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+    position: fixed;
+    top: 90px;
+    left: 20px;
+    background-color: #64ffda;
+    color: #0a192f;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.menu-toggle:hover {
+    transform: scale(1.1); /* Slight scale on hover */
+    background-color: #7affdc; /* Lighter green */
+}
+
+/* Main Content */
+.container {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 20px;
+    text-align: center;
+}
+.title {
+    font-size: 3rem;
+    color: #64ffda;
+    text-shadow: 0 0 10px #64ffda; /* Glow effect */
+}
+.subtitle {
+    font-size: 1.5rem;
+    color: #ccd6f6;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+#promptInput {
+    width: 80%;
+    max-width: 600px;
+    padding: 15px;
+    background-color: #233554;
+    border: 2px solid #64ffda;
+    border-radius: 10px;
+    color: #ccd6f6;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+#promptInput:focus {
+    outline: none;
+    box-shadow: 0 0 10px #64ffda; /* Glow on focus */
+}
+.generate-btn {
+    background-color: #64ffda;
+    color: #0a192f;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.2s, transform 0.2s;
+}
+.generate-btn:hover {
+    background-color: #7affdc;
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+/* Loader Styles */
+.loader {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    overflow: visible;
+}
+.loader img {
+    width: 300px;
+    height: 30px;
+}
+.loader p {
+    color: #64ffda;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+/* Gallery Styles */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    margin-top: 40px;
+}
+.image-card {
+    background-color: #233554;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s;
+}
+.image-card:hover {
+    transform: scale(1.05); /* Scale on hover */
+}
+.image-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.image-actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+.image-actions a {
+    color: #64ffda;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1003;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.toast.danger {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* Show Animation */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animations */
+.animate-fade-in {
+    animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.animate-slide-in {
+    animation: slideIn 1s ease-in;
+}
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
